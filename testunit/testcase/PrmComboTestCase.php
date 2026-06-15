@@ -30,11 +30,10 @@ class PrmComboTestCase extends TBSUnitTestCase {
 		// Referencing an undefined combo must raise a TBS error instead of a PHP fatal error.
 		// Before the fix, this caused: "Fatal error: Using $this when not in object context"
 		// because meth_Misc_ApplyPrmCombo is static but called $this->meth_Misc_Alert().
-		$this->newInstance = false;
 		$this->tbs = new clsTinyButStrong;
 		$this->tbs->NoErr = true;
 		$this->tbs->Source = '[onshow.msg;combo=undefined_combo]';
-		$msg = 'hello';
+		$this->tbs->VarRef['msg'] = 'hello';
 		$this->tbs->Show(TBS_NOTHING);
 
 		$this->assertTrue($this->tbs->ErrCount > 0, 'unknown combo - TBS error is raised');
